@@ -34,13 +34,13 @@ public class Main {
 
         // EDGES
         System.out.println("Reading Edges...");
-        try (BufferedReader br = new BufferedReader(new FileReader("ATM_Edges3.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("ATM_Edges2.csv"))) {
             String line;
             br.readLine(); 
             
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length >= 4) {
+                if (data.length >= 3) {
                     String fromId = data[0].trim();
                     String toId = data[1].trim();
 
@@ -49,7 +49,7 @@ public class Main {
                     
                     if (fromNode != null && toNode != null) {
                         try {
-                            double weight = Double.parseDouble(data[3].trim());
+                            double weight = Double.parseDouble(data[2].trim());
                             gtaGraph.addEdge(fromNode, toNode, weight);
                         } catch (NumberFormatException e) {
                         }
@@ -58,7 +58,7 @@ public class Main {
             }
             System.out.println("Edges loaded successfuly");
         } catch (Exception e) {
-            System.out.println("Error reading ATM_Edges3.csv: " + e.getMessage());
+            System.out.println("Error reading ATM_Edges2.csv: " + e.getMessage());
         }
         
         gtaGraph.printGraph();

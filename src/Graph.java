@@ -84,7 +84,7 @@ public class Graph<T> {
             if (entry.getValue() == Double.POSITIVE_INFINITY) {
                 System.out.println("Tidak terjangkau");
             } else {
-                System.out.printf("%.1f m\n", entry.getValue());
+                System.out.printf("%.0f m\n", entry.getValue());
             }
         }
     }
@@ -132,7 +132,7 @@ public class Graph<T> {
             System.out.println("Buntu! Tidak ada rute dari " + source + " ke " + target);
         } else {
             System.out.println("Target rute: " + source + " menuju " + target);
-            System.out.printf("Total Jarak Tempuh: %.1f m\n", distances.get(target));
+            System.out.printf("Total Jarak Tempuh: %.0f m\n", distances.get(target));
 
             List<T> path = new ArrayList<>();
             T curr = target;
@@ -143,7 +143,7 @@ public class Graph<T> {
             Collections.reverse(path);
 
             // path.size() - 1 adalah jumlah jalan/garis yang dilewati.
-            System.out.println("Total Hops (Langkah): " + (path.size() - 1) + " jalan");
+            System.out.println("Total Hops (Langkah): " + (path.size() - 1) + " ATM");
 
             System.out.println("Rute yang harus dilewati:");
             for (int i = 0; i < path.size(); i++) {
@@ -166,10 +166,10 @@ public class Graph<T> {
             System.out.println("Vertex " + vertex + " terhubung ke:");
             ArrayList<Edge<T>> listTetangga = adjList.get(vertex);
             if (listTetangga == null || listTetangga.isEmpty()) {
-                System.out.println("    [Tidak memiliki tetangga/terisolasi]");
+                System.out.println("    [Tidak memiliki tetangga/neighbor]");
             } else {
                 for (Edge<T> edge : listTetangga) {
-                    System.out.printf("    - %s (bobot: %.1f m)\n", edge.target, edge.weight);
+                    System.out.printf("    - %s (bobot: %.0f m)\n", edge.target, edge.weight);
                 }
             }
             System.out.println();
