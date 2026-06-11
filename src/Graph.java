@@ -18,7 +18,6 @@ public class Graph<T> {
         }
     }
 
-    // Helper class untuk Priority Queue (Min-Heap) Generic
     private class NodeDistance implements Comparable<NodeDistance> {
         T node;
         double distance;
@@ -167,7 +166,7 @@ public class Graph<T> {
             System.out.println("Vertex " + vertex + " terhubung ke:");
             ArrayList<Edge<T>> listTetangga = adjList.get(vertex);
             if (listTetangga == null || listTetangga.isEmpty()) {
-                System.out.println("    [Tidak memiliki tetangga/neighbor]");
+                System.out.println("    [Tidak memiliki tetangga/terisolasi]");
             } else {
                 for (Edge<T> edge : listTetangga) {
                     System.out.printf("    - %s (bobot: %.1f m)\n", edge.target, edge.weight);

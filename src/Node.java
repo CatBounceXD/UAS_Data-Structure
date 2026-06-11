@@ -11,7 +11,6 @@ public class Node {
         this.z = z;
     }
 
-    // Trik cerdas: saat objek Node dipanggil di cetakan Generic, Java otomatis mencetak ID-nya
     @Override
     public String toString() {
         return this.id;
