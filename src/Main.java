@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -66,15 +67,53 @@ public class Main {
         
         gtaGraph.printGraph();
         
-        // Ambil objek dari memori (Biarkan saja dua baris ini tetap hidup)
-        Node startNode = itemMap.get("ATM_001");
-        Node targetNode = itemMap.get("ATM_072"); 
+        // --- FITUR LIVE INPUT (TERMINAL INTERAKTIF) ---
+        Scanner scanner = new Scanner(System.in);
         
-        if (startNode != null && targetNode != null) {
-            gtaGraph.dijkstra(startNode);
-            // gtaGraph.dijkstra(startNode, targetNode);
-        } else {
-            System.out.println("Error: The first ATM or target ATM not found in CSV!");
+        while (true) {
+            System.out.println("\n========================================");
+            System.out.println("====== SISTEM DIJKSTRA ATM GTA V ======");
+            System.out.println("========================================");
+            
+            System.out.print("Enter the initial ATM_ID (or type '0' for exit): ");
+            String inputAsal = scanner.nextLine().trim();
+            
+            // Fitur untuk menghentikan program
+            if (inputAsal.equalsIgnoreCase("0")) {
+                System.out.println("Exiting The Program...");
+                break;
+            }
+            
+            System.out.print("Enter the targeted ATM_ID (just enter for scanning whole ATM): ");
+            String inputTujuan = scanner.nextLine().trim();
+            
+            // Mencari objek dari memori Map
+            Node startNode = itemMap.get(inputAsal);
+            
+            // Error Catcher jika ATM Asal salah ketik
+            if (startNode == null) {
+                System.out.println("[ERROR] initial ATM_ID '" + inputAsal + "' not found in database!");
+                continue; // Mengulang loop ke atas
+            }
+            
+            // Logika Pintar Method Overloading
+            if (inputTujuan.isEmpty()) {
+                // Jika tujuan dikosongkan, panggil Method 1 Parameter
+                System.out.println("\n>> Scanning the whole ATM...");
+                gtaGraph.dijkstra(startNode);
+            } else {
+                // Jika tujuan diisi, panggil Method 2 Parameter
+                Node targetNode = itemMap.get(inputTujuan);
+                
+                if (targetNode == null) {
+                    System.out.println("[ERROR] Targeted ATM_ID '" + inputTujuan + "' not found in database!");
+                } else {
+                    System.out.println("\n>> Scanning the route...");
+                    gtaGraph.dijkstra(startNode, targetNode);
+                }
+            }
         }
+        
+        scanner.close();
     }
 }

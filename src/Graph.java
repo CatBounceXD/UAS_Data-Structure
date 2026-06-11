@@ -79,7 +79,7 @@ public class Graph<T> {
             }
         }
 
-        System.out.println("\nHasil Jalur Terpendek dari [" + source + "]:");
+        System.out.println("\nHasil dijkstra dari [" + source + "]:");
         for (Map.Entry<T, Double> entry : distances.entrySet()) {
             System.out.print("Ke " + entry.getKey() + " -> Jarak: ");
             if (entry.getValue() == Double.POSITIVE_INFINITY) {
@@ -128,9 +128,9 @@ public class Graph<T> {
             }
         }
 
-        System.out.println("\n=== HASIL NAVIGASI GENERIC ===");
+        System.out.println("\n=== OUTPUT ===");
         if (distances.get(target) == Double.POSITIVE_INFINITY) {
-            System.out.println("Jalur Buntu! Tidak ada rute dari " + source + " ke " + target);
+            System.out.println("Buntu! Tidak ada rute dari " + source + " ke " + target);
         } else {
             System.out.println("Target rute: " + source + " menuju " + target);
             System.out.printf("Total Jarak Tempuh: %.1f m\n", distances.get(target));
@@ -142,7 +142,10 @@ public class Graph<T> {
                 curr = previousNodes.get(curr);
             }
             Collections.reverse(path);
-            
+
+            // path.size() - 1 adalah jumlah jalan/garis yang dilewati.
+            System.out.println("Total Hops (Langkah): " + (path.size() - 1) + " jalan");
+
             System.out.println("Rute yang harus dilewati:");
             for (int i = 0; i < path.size(); i++) {
                 System.out.print(path.get(i));
@@ -154,7 +157,7 @@ public class Graph<T> {
 
     public void printGraph() {
         System.out.println("\n=======================================================");
-        System.out.println("=== STRUKTUR GRAF (ADJACENCY LIST) BESERTA BOBOT ===");
+        System.out.println("=================== GRAPH ATM GTA V ===================");
         System.out.println("=======================================================");
         
         List<T> vertices = new ArrayList<>(adjList.keySet());
@@ -164,10 +167,10 @@ public class Graph<T> {
             System.out.println("Vertex " + vertex + " terhubung ke:");
             ArrayList<Edge<T>> listTetangga = adjList.get(vertex);
             if (listTetangga == null || listTetangga.isEmpty()) {
-                System.out.println("    [Tidak memiliki tetangga/terisolasi]");
+                System.out.println("    [Tidak memiliki tetangga/neighbor]");
             } else {
                 for (Edge<T> edge : listTetangga) {
-                    System.out.printf("    -> %s (bobot: %.1f m)\n", edge.target, edge.weight);
+                    System.out.printf("    - %s (bobot: %.1f m)\n", edge.target, edge.weight);
                 }
             }
             System.out.println();
