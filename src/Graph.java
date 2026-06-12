@@ -145,12 +145,24 @@ public class Graph<T> {
             // path.size() - 1 adalah jumlah jalan/garis yang dilewati.
             System.out.println("Total Hops (Langkah): " + (path.size() - 1) + " ATM");
 
-            System.out.println("Rute yang harus dilewati:");
+            System.out.println("Rute :");
             for (int i = 0; i < path.size(); i++) {
-                System.out.print(path.get(i));
-                if (i < path.size() - 1) System.out.print(" -> ");
+                T currentATM = path.get(i);
+            
+                System.out.print(currentATM);
+                if (i < path.size() - 1) {
+                    T nextATM = path.get(i + 1);
+                    double jarakLangkah = 0.0;
+                    for (Edge<T> edge : adjList.get(currentATM)) {
+                        if (edge.target.equals(nextATM)) {
+                            jarakLangkah = edge.weight;
+                            break;
+                        }
+                    }
+                    System.out.printf(" --(%.0f m)-->\n", jarakLangkah);
+                }
             }
-            System.out.println();
+            System.out.println("\n");
         }
     }
 
