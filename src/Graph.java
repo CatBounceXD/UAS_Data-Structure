@@ -77,16 +77,23 @@ public class Graph<T> {
                 }
             }
         }
+        double counter = 0;
 
         System.out.println("\nHasil dijkstra dari [" + source + "]:");
         for (Map.Entry<T, Double> entry : distances.entrySet()) {
+            if (entry.getKey().equals(source)) {
+                continue;
+            }
             System.out.print("Ke " + entry.getKey() + " -> Jarak: ");
             if (entry.getValue() == Double.POSITIVE_INFINITY) {
                 System.out.println("Tidak terjangkau");
             } else {
                 System.out.printf("%.0f m\n", entry.getValue());
             }
+
+            counter = counter + 1;
         }
+        System.out.printf("\njumlah: %.0f ATM\n", counter);
     }
 
     public void dijkstra(T source, T target) {
